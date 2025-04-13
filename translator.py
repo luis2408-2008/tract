@@ -16,6 +16,10 @@ def translate_text(text, source_lang, target_lang):
     Raises:
         Exception: If translation fails
     """
+    # If no text is provided, return empty string
+    if not text or text.strip() == "":
+        return ""
+        
     try:
         # Convert language names to language codes
         source_code = LANGUAGE_CODES.get(source_lang.lower(), 'auto')
@@ -31,6 +35,7 @@ def translate_text(text, source_lang, target_lang):
             dest=target_code
         )
         
+        # Return the translated text
         return result.text
     except Exception as e:
         # Log the error for debugging
