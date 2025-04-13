@@ -1,0 +1,29 @@
+# Archivos temporales
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de entorno
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Archivos temporales
+*.mp3
+*.wav
+*.tmp
+
+# Logs
+*.log
+
+# Archivos específicos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Archivos específicos de Streamlit
+.streamlit/secrets.toml
