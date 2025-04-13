@@ -40,5 +40,5 @@ def translate_text(text, source_lang, target_lang):
     except Exception as e:
         # Log the error for debugging
         print(f"Translation error: {str(e)}")
-        # Re-raise to be handled by the caller
-        raise Exception(f"Unable to translate: {str(e)}")
+        # Return a friendly error message instead of raising an exception
+        return f"Error: {str(e)}"

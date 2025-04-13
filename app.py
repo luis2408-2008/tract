@@ -33,13 +33,24 @@ def on_text_change():
                 st.session_state.source_lang,
                 st.session_state.target_lang
             )
-            st.session_state.translated_text = result
-            st.session_state.last_translation = {
-                "text": result,
-                "src": st.session_state.source_lang,
-                "dest": st.session_state.target_lang
-            }
-            st.session_state.translate_error = None
+            
+            # Check if result contains an error message
+            if result.startswith("Error:"):
+                st.session_state.translate_error = result
+                print(f"Translation error: {result}")
+                # Keep previous translation if there's an error
+                if "last_translation" in st.session_state and st.session_state.last_translation["text"]:
+                    st.session_state.translated_text = st.session_state.last_translation["text"]
+                else:
+                    st.session_state.translated_text = ""
+            else:
+                st.session_state.translated_text = result
+                st.session_state.last_translation = {
+                    "text": result,
+                    "src": st.session_state.source_lang,
+                    "dest": st.session_state.target_lang
+                }
+                st.session_state.translate_error = None
         else:
             st.session_state.translated_text = ""
             st.session_state.translate_error = None
@@ -47,7 +58,7 @@ def on_text_change():
         # Remove any previous audio when text changes
         st.session_state.audio_path = None
     except Exception as e:
-        st.session_state.translate_error = str(e)
+        st.session_state.translate_error = f"Error inesperado: {str(e)}"
         print(f"Translation error: {str(e)}")
 
 def on_lang_change():
